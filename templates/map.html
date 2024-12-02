@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koordinat Haritası</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #e6f7e6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin-top: 50px;
+            flex: 1;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        footer a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Koordinatlar Haritası</h1>
+            <p>Yüklediğiniz dosyanın dönüşüm sonuçlarını harita üzerinde görüyorsunuz</p>
+        </div>
+        <div id="map"></div>
+        
+        <div class="btn-container">
+            <a href="/" class="btn btn-primary">Ana Ekrana Dön</a>
+            <a href="{{ download_link }}" download class="btn btn-success">Koordinatları İndir</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Koordinat Dönüştürme Uygulaması. Tüm hakları saklıdır.</p>
+        <p><a href="https://buymeacoffee.com/aliguvenaltin" target="_blank">Bağış Yap</a> | <a href="/contact">İletişim</a></p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var coordinates = {{ coordinates|tojson }};
+        
+        var map = L.map('map').setView([0, 0], 2);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+        }).addTo(map);
+
+        var bounds = [];
+
+        coordinates.forEach(function(coord) {
+            var marker = L.marker([coord.lat, coord.lon]).addTo(map);
+            marker.on('click', function() {
+                var popupContent = "Enlem: " + coord.lat + "<br>Boylam: " + coord.lon;
+                marker.bindPopup(popupContent).openPopup();
+            });
+            bounds.push([coord.lat, coord.lon]);
+        });
+
+        map.fitBounds(bounds, { padding: [20, 20] });
+    </script>
+</body>
+</html>
