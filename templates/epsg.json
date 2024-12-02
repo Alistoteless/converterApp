@@ -1,0 +1,218 @@
+[
+    {
+      "name": "ED50",
+      "EPSG": 4230,
+      "Zon": "-",
+      "DOM": "-",
+      "coord_system": "2D Coğr.",
+      "ESRI": 4230,
+      "description": "Coğrafi European Datum 1950"
+    },
+    {
+      "name": "WGS84",
+      "EPSG": 4326,
+      "Zon": "-",
+      "DOM": "-",
+      "coord_system": "2D Coğr.",
+      "ESRI": 4326,
+      "description": "Coğrafi World Geodetic System 1984"
+    },
+    {
+      "name": "ITRF96",
+      "EPSG": 8995,
+      "Zon": "-",
+      "DOM": "-",
+      "coord_system": "2D Coğr.",
+      "ESRI": 104122,
+      "description": "Coğrafi International Terrestrial Reference Frame 1996"
+    },
+    {
+      "name": "TUREF",
+      "EPSG": 5252,
+      "Zon": "-",
+      "DOM": "-",
+      "coord_system": "2D Coğr.",
+      "ESRI": 5252,
+      "description": "Coğrafi Turkish National Reference Frame 1996"
+    },
+    {
+      "name": "ED50 TM27",
+      "EPSG": 2319,
+      "Zon": 9,
+      "DOM": 27,
+      "coord_system": "3°",
+      "ESRI": "102550-2206",
+      "description": "European Datum 1950 3° Zone 9"
+    },
+    {
+      "name": "ED50 TM30",
+      "EPSG": 2320,
+      "Zon": 10,
+      "DOM": 30,
+      "coord_system": "3°",
+      "ESRI": "102551-2207",
+      "description": "European Datum 1950 3° Zone 10"
+    },
+    {
+      "name": "ED50 TM33",
+      "EPSG": 2321,
+      "Zon": 11,
+      "DOM": 33,
+      "coord_system": "3°",
+      "ESRI": "102552-2208",
+      "description": "European Datum 1950 3° Zone 11"
+    },
+    {
+      "name": "ED50 TM36",
+      "EPSG": 2322,
+      "Zon": 12,
+      "DOM": 36,
+      "coord_system": "3°",
+      "ESRI": "102553-2209",
+      "description": "European Datum 1950 3° Zone 12"
+    },
+    {
+      "name": "ED50 TM39",
+      "EPSG": 2323,
+      "Zon": 13,
+      "DOM": 39,
+      "coord_system": "3°",
+      "ESRI": "102554-2210",
+      "description": "European Datum 1950 3° Zone 13"
+    },
+    {
+      "name": "ED50 TM42",
+      "EPSG": 2324,
+      "Zon": 14,
+      "DOM": 42,
+      "coord_system": "3°",
+      "ESRI": "102555-2211",
+      "description": "European Datum 1950 3° Zone 14"
+    },
+    {
+      "name": "ED50 TM45",
+      "EPSG": 2325,
+      "Zon": 15,
+      "DOM": 45,
+      "coord_system": "3°",
+      "ESRI": "102556-2212",
+      "description": "European Datum 1950 3° Zone 15"
+    },
+    {
+      "name": "ED50 35N",
+      "EPSG": 23035,
+      "Zon": 35,
+      "DOM": 27,
+      "coord_system": "6°",
+      "ESRI": 23035,
+      "description": "European Datum 1950 6° Zone 35"
+    },
+    {
+      "name": "ED50 36N",
+      "EPSG": 23036,
+      "Zon": 36,
+      "DOM": 33,
+      "coord_system": "6°",
+      "ESRI": 23036,
+      "description": "European Datum 1950 6° Zone 36"
+    },
+    {
+      "name": "ED50 37N",
+      "EPSG": 23037,
+      "Zon": 37,
+      "DOM": 39,
+      "coord_system": "6°",
+      "ESRI": 23037,
+      "description": "European Datum 1950 6° Zone 37"
+    },
+    {
+      "name": "ED50 38N",
+      "EPSG": 23038,
+      "Zon": 38,
+      "DOM": 45,
+      "coord_system": "6°",
+      "ESRI": 23038,
+      "description": "European Datum 1950 6° Zone 38"
+    },
+    {
+      "name": "WGS84 35N",
+      "EPSG": 32635,
+      "Zon": 35,
+      "DOM": 27,
+      "coord_system": "6°",
+      "ESRI": 32635,
+      "description": "World Geodetic System 1984 - 6° Zone 35"
+    },
+    {
+      "name": "WGS84 36N",
+      "EPSG": 32636,
+      "Zon": 36,
+      "DOM": 33,
+      "coord_system": "6°",
+      "ESRI": 32636,
+      "description": "World Geodetic System 1984 - 6° Zone 36"
+    },
+    {
+      "name": "WGS84 37N",
+      "EPSG": 32637,
+      "Zon": 37,
+      "DOM": 39,
+      "coord_system": "6°",
+      "ESRI": 32637,
+      "description": "World Geodetic System 1984 - 6° Zone 37"
+    },
+    {
+      "name": "WGS84 38N",
+      "EPSG": 32638,
+      "Zon": 38,
+      "DOM": 45,
+      "coord_system": "6°",
+      "ESRI": 32638,
+      "description": "World Geodetic System 1984 - 6° Zone 38"
+    },
+    {
+      "name": "TUREF / TM27",
+      "EPSG": 5253,
+      "Zon": 9,
+      "DOM": 27,
+      "coord_system": "3°",
+      "ESRI": 5269,
+      "description": "International Terrestrial Reference Frame 1996"
+    },
+    {
+      "name": "TUREF / TM30",
+      "EPSG": 5254,
+      "Zon": 10,
+      "DOM": 30,
+      "coord_system": "3°",
+      "ESRI": 5270,
+      "description": "International Terrestrial Reference Frame 1996"
+    },
+    {
+      "name": "TUREF / TM33",
+      "EPSG": 5255,
+      "Zon": 11,
+      "DOM": 33,
+      "coord_system": "3°",
+      "ESRI": 5271,
+      "description": "International Terrestrial Reference Frame 1996"
+    },
+    {
+      "name": "TUREF / TM36",
+      "EPSG": 5256,
+      "Zon": 12,
+      "DOM": 36,
+      "coord_system": "3°",
+      "ESRI": 5272,
+      "description": "International Terrestrial Reference Frame 1996"
+    },
+    {
+      "name": "TUREF / TM39",
+      "EPSG": 5257,
+      "Zon": 13,
+      "DOM": 39,
+      "coord_system": "3°",
+      "ESRI": 5273,
+      "description": "International Terrestrial Reference Frame 1996"
+    }
+]  

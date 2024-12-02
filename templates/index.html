@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koordinat Dönüştürme Uygulaması</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:,">
+
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #e6f7e6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin-top: 50px;
+            flex: 1;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .drag-drop-area {
+            border: 2px dashed #28a745;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            color: #6c757d;
+            font-weight: 600;
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+        .drag-drop-area.drag-over {
+            background-color: #e8f5e9;
+            border-color: #218838;
+        }
+        .hidden-input {
+            display: none;
+        }
+        .btn-primary {
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        footer a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .example-text {
+            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .example-text h5 {
+            margin-bottom: 10px;
+            color: #28a745;
+            font-weight: 600;
+        }
+        .example-text pre {
+            font-family: 'Courier New', Courier, monospace;
+            background: #e4e4e4;
+            border-radius: 5px;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>2B Koordinat Dönüştürme Aracı</h1>
+            <p>Koordinat dosyanızı yükleyin ve dönüşümü gerçekleştirin</p>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="source_coord_type">Kaynak Koordinat Projeksiyonu:</label>
+                        <select class="form-control" id="source_coord_type" name="source_coord_type" required>
+                            <option value="">Seçiniz...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="target_coord_type">Hedef Koordinat Projeksiyonu:</label>
+                        <select class="form-control" id="target_coord_type" name="target_coord_type" required>
+                            <option value="">Seçiniz...</option>
+                        </select>
+                    </div>
+
+                    
+                    <div class="drag-drop-area" id="drag-drop-area">
+                        <input type="file" id="file-input" class="hidden-input" name="file" required>
+                        <span id="drag-drop-area-label">Dosyayı buraya sürükleyin ya da tıklayın</span>
+                    </div>
+
+                    <div class="example-text">
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#exampleFormat" aria-expanded="false" aria-controls="exampleFormat">
+                            Örnek Dosya Formatı:
+                        </button>
+                        <div class="collapse" id="exampleFormat">
+                            <h5>Dosya Formatı Örneği:</h5>
+                            <pre>
+noktalar.txt:
+40.7128, -74.0060
+34.0522, -118.2437
+51.5074, -0.1278
+                            </pre>
+                            <p>Koordinatlara ait X ve Y değerleri virgülle ',' ayrılmış olmalı, ondalık ifadesi ise nokta '.' ile ayrılmalıdır. Örneğin;</p>
+                            <p><strong>41.08110445</strong> (Enlem), <strong>31.21347658</strong> (Boylam)</p>
+                            <p><strong>349959.51</strong>(Sağ Değer), <strong>4549483.24</strong> (Yukarı Değer)</p>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block upload-btn" id="submit-btn" disabled>Yükle</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Koordinat Dönüştürme Uygulaması. Tüm hakları saklıdır.</p>
+        <p><a href="https://buymeacoffee.com/aliguvenaltin" target="_blank">Bağış Yap</a> | <a href="/contact">İletişim</a></p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const dragDropArea = document.getElementById('drag-drop-area');
+        const dragDropAreaLabel = document.getElementById('drag-drop-area-label');
+        const fileInput = document.getElementById('file-input');
+        const uploadForm = document.getElementById('upload-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const sourceDropdown = document.getElementById('source_coord_type');
+        const targetDropdown = document.getElementById('target_coord_type');
+
+        // // Sürükleme olaylarını yönet
+       dragDropArea.addEventListener('dragover', (event) => {
+           event.preventDefault();
+           dragDropArea.classList.add('drag-over');
+       });
+
+        dragDropArea.addEventListener('dragleave', () => {
+            dragDropArea.classList.remove('drag-over');
+        });
+
+        dragDropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dragDropArea.classList.remove('drag-over');
+
+            const files = event.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                updateDragDropText(files[0].name);
+                checkFormValidity();
+            }
+        });
+        uploadForm.addEventListener('submit', (event) => {
+            console.log("Form is being submitted...");
+        });
+        // Tıklama ile dosya seçimi
+        dragDropArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                console.log({fileInput})
+                updateDragDropText(fileInput.files[0].name);
+                checkFormValidity();
+            }
+        });
+        sourceDropdown.addEventListener('change', () => {
+            checkFormValidity();
+        });
+        targetDropdown.addEventListener('change', () => {
+            checkFormValidity();
+        });
+        
+        // Dosya adını "Sürükle Bırak" alanına yerleştir
+        function updateDragDropText(fileName) {
+
+            dragDropAreaLabel.innerHTML = `Seçilen dosya: ${fileName}`;
+        }
+
+        // Form geçerliliğini kontrol et
+        function checkFormValidity() {
+            if (fileInput.files.length > 0 && sourceDropdown.value && targetDropdown.value) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        // JSON dosyasından veri okuma ve dropdownlara ekleme
+        fetch('/epsg')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('JSON dosyası yüklenirken hata oluştu');
+                }
+                return response.json();
+            })
+            .then(data => {
+                data.forEach(item => {
+                    const option1 = document.createElement("option");
+                    option1.value = item["name"];
+                    option1.textContent = `${item["name"]} (${item["description"]})`;
+                    sourceDropdown.appendChild(option1);
+
+                    const option2 = document.createElement("option");
+                    option2.value = item["name"];
+                    option2.textContent = `${item["name"]} (${item["description"]})`;
+                    targetDropdown.appendChild(option2);
+                });
+            })
+            .catch(error => console.error('Hata:', error));
+
+
+
+    </script>
+</body>
+</html>
